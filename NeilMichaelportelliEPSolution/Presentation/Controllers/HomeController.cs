@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using NeilMichaelportelliEPSolution.Models;
+using NeilMichaelPortelliEPSolution.Models;
 
-namespace NeilMichaelportelliEPSolution.Controllers
+namespace NeilMichaelportelliEPSolution.Presentation.Controllers
 {
     public class HomeController : Controller
     {
