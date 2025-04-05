@@ -1,7 +1,28 @@
 ﻿@model List<NeilMichaelportelliEPSolution.Domain.Poll>
 
 <h2>All Polls</h2>
+
 <a href="@Url.Action("Create", "Poll")" class="btn btn-success mb-3">Create Poll</a>
+
+<!-- Display message if the user has already voted -->
+@{
+    var successMessage = TempData["Message"] as string;
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-info">
+        @successMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
 
 <table class="table">
     <thead>
@@ -18,10 +39,35 @@
                 <td>@poll.Title</td>
                 <td>@poll.DateCreated.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>
-                    <a href="@Url.Action("Vote", "Poll", new { id = poll.Id })" class="btn btn-primary">Vote</a>
+                    <!-- Check if the user has already voted -->
+                    @if (!UserHasVoted(poll.Id))
+                    {
+                        <a href="@Url.Action("Vote", "Poll", new { id = poll.Id })" class="btn btn-primary">Vote</a>
+                    }
+                    else
+                    {
+                        <span class="btn btn-secondary disabled">Already Voted</span>
+                    }
                     <a href="@Url.Action("Stats", "Poll", new { id = poll.Id })" class="btn btn-info">Stats</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+@functions {
+    // This function checks if the user has already voted on the poll
+    private bool UserHasVoted(int pollId)
+    {
+        var userId = User.Identity.Name;  // Get the logged-in user's ID
+        if (string.IsNullOrEmpty(userId))
+        {
+            return false;  // User is not logged in, so no vote has been made
+        }
+
+        // Check if the user has voted for this poll
+        var voted = TempData["VotedPolls"] as List<int> ?? new List<int>();
+
+        return voted.Contains(pollId);
+    }
+}

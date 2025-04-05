@@ -9,5 +9,6 @@ namespace NeilMichaelPortelliEPSolution.Domain.EntityFrameworkCore
         }
 
         public DbSet<Poll> Polls { get; set; }
+        public DbSet<Vote> Votes { get; set; }
     }
 }

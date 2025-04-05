@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NeilMichaelPortelliEPSolution.Domain.EntityFrameworkCore;
 using NeilMichaelPortelliEPSolution.Domain.Repositories;
+using NeilMichaelPortelliEPSolution.Presentation.Filters;
 
 namespace NeilMichaelPortelliEPSolution
 {
@@ -18,6 +20,20 @@ namespace NeilMichaelPortelliEPSolution
 
             // Register repositories
             builder.Services.AddScoped<IPollRepository, PollRepository>();
+
+            builder.Services.AddScoped<EnsureUserHasNotVotedFilter>(); // Register the filter globally
+
+
+            // Add authentication services
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";  // Path to the login page
+                    options.AccessDeniedPath = "/Account/AccessDenied";  // Path to the access denied page
+                });
+
+            // Add authorization services
+            builder.Services.AddAuthorization();
 
             builder.Services.AddControllersWithViews()
                 .AddRazorOptions(options =>
@@ -48,6 +64,10 @@ namespace NeilMichaelPortelliEPSolution
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // Use authentication and authorization middleware
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             // Redirect root URL ("/") to Poll/Index
             app.MapGet("/", async context =>

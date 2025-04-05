@@ -97,5 +97,20 @@ namespace NeilMichaelPortelliEPSolution.Domain.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> Vote(int pollId, string selectedOption, int option)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> HasUserVoted(int id, string? userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Vote(int id, string selectedOption, string? userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
