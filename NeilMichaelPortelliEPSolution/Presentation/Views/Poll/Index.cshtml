@@ -1,0 +1,27 @@
+﻿@model List<NeilMichaelportelliEPSolution.Domain.Poll>
+
+<h2>All Polls</h2>
+<a href="@Url.Action("Create", "Poll")" class="btn btn-success mb-3">Create Poll</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Date Created</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var poll in Model)
+        {
+            <tr>
+                <td>@poll.Title</td>
+                <td>@poll.DateCreated.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>
+                    <a href="@Url.Action("Vote", "Poll", new { id = poll.Id })" class="btn btn-primary">Vote</a>
+                    <a href="@Url.Action("Stats", "Poll", new { id = poll.Id })" class="btn btn-info">Stats</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

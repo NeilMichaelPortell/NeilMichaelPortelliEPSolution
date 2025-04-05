@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NeilMichaelportelliEPSolution.Domain;
-namespace NeilMichaelPortelliEPSolution.Domaian.EntityFrameworkCore
+namespace NeilMichaelPortelliEPSolution.Domain.EntityFrameworkCore
 {
     public class PollDbContext : DbContext
     {

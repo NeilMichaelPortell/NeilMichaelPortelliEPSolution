@@ -1,0 +1,36 @@
+﻿@model NeilMichaelPortelliEPSolution.Presentation.Models.StatsModel
+
+<h2>@Model.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Option</th>
+            <th>Votes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Option1Text</td>
+            <td>@Model.Option1Votes</td>
+        </tr>
+        <tr>
+            <td>@Model.Option2Text</td>
+            <td>@Model.Option2Votes</td>
+        </tr>
+        <tr>
+            <td>@Model.Option3Text</td>
+            <td>@Model.Option3Votes</td>
+        </tr>
+    </tbody>
+</table>
+
+<form action="@Url.Action("Vote", "Poll", new { id = Model.Title, optionNumber = 1 })" method="post">
+    <button type="submit" class="btn btn-primary">Vote for @Model.Option1Text</button>
+</form>
+<form action="@Url.Action("Vote", "Poll", new { id = Model.Title, optionNumber = 2 })" method="post">
+    <button type="submit" class="btn btn-primary">Vote for @Model.Option2Text</button>
+</form>
+<form action="@Url.Action("Vote", "Poll", new { id = Model.Title, optionNumber = 3 })" method="post">
+    <button type="submit" class="btn btn-primary">Vote for @Model.Option3Text</button>
+</form>
