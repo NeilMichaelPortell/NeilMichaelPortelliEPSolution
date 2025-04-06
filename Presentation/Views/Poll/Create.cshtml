@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Create Poll";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Create a Poll</h1>
+    <p>Fill in the details below to create a new poll.</p>
+
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label for="title">Poll Title</label>
+            <input type="text" name="title" class="form-control" id="title" required />
+        </div>
+
+        <div class="form-group">
+            <label for="option1Text">Option 1 Text</label>
+            <input type="text" name="option1Text" class="form-control" id="option1Text" required />
+        </div>
+
+        <div class="form-group">
+            <label for="option2Text">Option 2 Text</label>
+            <input type="text" name="option2Text" class="form-control" id="option2Text" required />
+        </div>
+
+        <div class="form-group">
+            <label for="option3Text">Option 3 Text</label>
+            <input type="text" name="option3Text" class="form-control" id="option3Text" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Poll</button>
+    </form>
+</div>

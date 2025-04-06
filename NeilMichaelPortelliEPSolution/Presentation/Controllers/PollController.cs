@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using NeilMichaelPortelliEPSolution.Domain;
 using NeilMichaelPortelliEPSolution.Domain.Repositories;
-using System.Linq;
-using System.Threading.Tasks;
 using NeilMichaelPortelliEPSolution.Presentation.Filters;
 
 namespace NeilMichaelPortelliEPSolution.Presentation.Controllers
@@ -97,27 +93,31 @@ namespace NeilMichaelPortelliEPSolution.Presentation.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetChartData(int id)
+        {
+            var poll = await _pollRepository.GetPollById(id);
+            if (poll == null)
+            {
+                return NotFound();
+            }
 
-        //public async Task<IActionResult> Stats(int id)
-        //{
-        //    var poll = await _pollRepository.GetPollById(id);
-        //    if (poll == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var chartData = new
+            {
+                labels = new[] { poll.Option1Text, poll.Option2Text, poll.Option3Text },
+                datasets = new[]
+                {
+                    new
+                    {
+                        label = "Votes",
+                        data = new[] { poll.Option1VotesCount, poll.Option2VotesCount, poll.Option3VotesCount },
+                        backgroundColor = new[] { "#FF6384", "#36A2EB", "#FFCE56" }
+                    }
+                }
+            };
 
-        //    var model = new StatsModel
-        //    {
-        //        Title = poll.Title,
-        //        Option1Text = poll.Option1Text,
-        //        Option2Text = poll.Option2Text,
-        //        Option3Text = poll.Option3Text,
-        //        Option1Votes = poll.Option1VotesCount,
-        //        Option2Votes = poll.Option2VotesCount,
-        //        Option3Votes = poll.Option3VotesCount
-        //    };
+            return Json(chartData);
+        }
 
-        //    return View(model);
-        //}
     }
 }
