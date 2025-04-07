@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeilMichaelPortelliEPSolution.Domain;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,12 +17,22 @@ namespace NeilMichaelPortelliEPSolution.DataAccess
             throw new NotImplementedException();
         }
 
+        internal void Add(Vote vote)
+        {
+            throw new NotImplementedException();
+        }
+
         internal async Task AddAsync(Poll poll)
         {
             throw new NotImplementedException();
         }
 
         internal async Task AddAsync(Vote vote)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task<bool> AnyAsync(Func<object, bool> value)
         {
             throw new NotImplementedException();
         }

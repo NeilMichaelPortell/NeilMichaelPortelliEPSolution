@@ -44,12 +44,12 @@ namespace NeilMichaelPortelliEPSolution.DataAccess
 
         public async Task<Poll> GetPollById(int id)
         {
-            return await context.Polls.FindAsync(id);
+            return await _context.Polls.FindAsync(id);
         }
 
         public async Task<bool> Vote(int pollId, string userId, int option)
         {
-            Poll poll = await context.Polls.FindAsync(pollId);
+            Poll poll = await _context.Polls.FindAsync(pollId);
             if (poll == null) return false;
 
             if (await HasUserVoted(pollId, userId))
